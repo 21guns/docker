@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  #docker run --name mysql -v /Users/jliu/Develop/tools/docker/mysql:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7 --lower_case_table_names=1
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: --lower_case_table_names=1
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - /Users/jliu/Develop/tools/docker/mysql:/var/lib/mysql
+  #docker run -p 3307:3306 --name binlog-mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --lower_case_table_names=1 --log-bin=mysql-bin --binlog-format=ROW --server_id=1
+  # mysql-binlog: 
+  #   image: mysql:5.7
+  #   container_name: mysql-binlog
+  #   command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --lower_case_table_names=1 --log-bin=mysql-bin --binlog-format=ROW --server_id=1
+  #   ports:
+  #     - "3307:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 123456    
+
+  #docker run -d --hostname rabbit --name web-rabbit -p 9191:15672 -p 5672:5672 -e RABBITMQ_ERLANG_COOKIE='123456' rabbitmq:3-management
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: web-rabbit
+    ports: 
+      - "9191:15672"
+      - "5672:5672"
+    hostname: rabbit
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 123456
+  #docker run --name redis  -p 6379:6379 -d redis:6 --requirepass "phaeyuQuu7ch"
+  redis:
+    image: redis:6
+    container_name: redis
+    ports:
+      - "6379:6379"
+    
